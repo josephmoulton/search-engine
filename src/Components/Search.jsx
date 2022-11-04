@@ -5,14 +5,22 @@ import MicIcon from "@mui/icons-material/Mic";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../reducer"
 
 function Search({ hideButtons = false }) {
+  const [{},dispatch] = useStateValue();
+
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 
   const search = (e) => {
     e.preventDefault();
     navigate("/search");
+    dispatch({
+      type: actionTypes.SET_SEARCH_TERM,
+      term: input,
+    })
   };
 
   return (
